@@ -9,6 +9,7 @@ class Ship:
         self.screen = (
             ai_game.screen
         )  # assigning screen to an attribute of the ship for easy access in methods of class
+        self.settings = ai_game.settings
         self.screen_rect = (
             ai_game.screen.get_rect()
         )  # accessing the screen's rect attribute allowing us to place the ship in thecorrect location on the screen
@@ -24,6 +25,9 @@ class Ship:
             self.screen_rect.midbottom
         )  # uses the rect attributes to position the ship image so its centered and at the bottom of the screen
 
+        # store a decimal value for the ship's horixontal position.
+        self.x = float(self.rect.x)  # attirbute can now store a decial value
+
         # movemnet flag
         self.moving_right = (
             False  # moving right attribute added to __init__ and initially set to false
@@ -32,10 +36,16 @@ class Ship:
 
     def update(self):
         """update the ship's position based on the movemnet flags."""
+        # update the ship's x value, not the rect.
         if self.moving_right:
-            self.rect.x += 1
+            self.x += self.settings.ship_speed
         if self.moving_left:
-            self.rect.x -= 1
+            self.x -= self.settings.ship_speed
+
+        # update rect object from self.x
+        self.rect.x = (
+            self.x
+        )  # usign self.x to update self.rect.x which controls the position of the ship
 
     def blitme(self):
         """Draw the ship at its current location."""
