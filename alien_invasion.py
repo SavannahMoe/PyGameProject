@@ -16,8 +16,10 @@ class AlienInvasion:
         self.settings = Settings()  # asign instance of settings to self.settings
 
         self.screen = pygame.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height)
-        )  # creates display window and uses tuple define deminsions
+            (0, 0), pygame.FULLSCREEN
+        )  # tells pygame to figure out a window size taht will fill screen
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption(
             "Alien Invasion"
         )  # self.screen is a SUFRACE, each element can be returned by display.set_mode
