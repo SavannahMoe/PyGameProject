@@ -43,6 +43,23 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()  # storign bullets in a group
+
+            # get rid oof bullets that have disappeared.
+            for (
+                bullet
+            ) in (
+                self.bullets.copy()
+            ):  # copy() method in the for loop allows us to modify bullets inside the loop
+                if (
+                    bullet.rect.bottom <= 0
+                ):  # check to see if each bullet has moved off the screen
+                    self.bullets.remove(
+                        bullet
+                    )  # remove the bullets if they are no longer on the screen
+'''         print(
+                len(self.bullets)
+            )  # show how many bullets currently exist in the game and verufy that they're being deleted when they reach the top of the screen
+'''
             self._update_screen()
 
             # redraw the screen during the pass thorugh the loop.
