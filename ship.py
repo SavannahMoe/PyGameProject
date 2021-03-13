@@ -24,6 +24,16 @@ class Ship:
             self.screen_rect.midbottom
         )  # uses the rect attributes to position the ship image so its centered and at the bottom of the screen
 
+        # movemnet flag
+        self.moving_right = (
+            False  # moving right attribute added to __init__ and initially set to false
+        )
+
+    def update(self):
+        """update the ship's position based on the movemnet flag."""
+        if self.moving_right:
+            self.rect.x += 1
+
     def blitme(self):
         """Draw the ship at its current location."""
         self.screen.blit(self.image, self.rect)

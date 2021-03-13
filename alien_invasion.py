@@ -40,6 +40,7 @@ class AlienInvasion:
         ):  # while loop that runs continually and includes event loop (for loop)
             # watche for keyboard and mouse events. #EVENT: an action that the user performs while playing the game ( pressing key or moving the mouse)
             self._check_events()
+            self.ship.update()
             self._update_screen()
 
             # redraw the screen during the pass thorugh the loop.
@@ -52,6 +53,10 @@ class AlienInvasion:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
                     #move the ship to the right
                     self.ship.rect.x += 1
 
