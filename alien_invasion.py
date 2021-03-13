@@ -1,10 +1,8 @@
 import sys
-
 import pygame
-
 from settings import Settings
-
 from ship import Ship
+from bullet import Bullet
 
 
 class AlienInvasion:
@@ -67,6 +65,8 @@ class AlienInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:  # exit out of screen by pressing "q"
             sys.exit()
+        elif event.key == pygame.K_SPACE:  # call  _fire_bullet whith the space bar
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         """respond to keyreleases"""
@@ -75,13 +75,23 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+    def _fire_bullet(self):
+        """create a new bullet and add it to the bullets group."""
+        new_bullet = Bullet(self)  # make an instance of Bullet
+        self.bullets.add(new_bullet)  # add it to the bullet group using add()
+
     def _update_screen(self):
         """update images on the screen, and flip to the new screen."""
         self.screen.fill(
             self.settings.bg_color
         )  # Fill method, acts on the surface and take one argument a color
         self.ship.blitme()  # after filling background, this draw ships to appear on top of back ground
-
+        for (
+            bullet
+        ) in (
+            self.bullets.sprites()
+        ):  # sprite method returns a list of all sprites in the group bullets, loop through the sprites
+            bullet.draw_bullet()  # and call draw_bullet on each one
         # make the most recently drawn screen visible.
         pygame.display.flip()  # tells pygame to make the most recently drawn screen visible, continually updates to show the
         # new positions of the game elements and hides the old ones
