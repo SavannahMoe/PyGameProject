@@ -39,13 +39,7 @@ class AlienInvasion:
             True
         ):  # while loop that runs continually and includes event loop (for loop)
             # watche for keyboard and mouse events. #EVENT: an action that the user performs while playing the game ( pressing key or moving the mouse)
-            for (
-                event
-            ) in (
-                pygame.event.get()
-            ):  # write this to listen for events and perform appropraite tasks
-                if event.type == pygame.QUIT:
-                    sys.exit()  # when user presses the close button== QUIT will use sys.exit to exit the game
+            self._check_events()
 
             # redraw the screen during the pass thorugh the loop.
             self.screen.fill(
@@ -56,6 +50,12 @@ class AlienInvasion:
             # make the most recently drawn screen visible.
             pygame.display.flip()  # tells pygame to make the most recently drawn screen visible, continually updates to show the
             # new positions of the game elements and hides the old ones
+
+    def _check_events(self):  # make new check events method
+        """Rspond to keypresses and mouse events."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
 
 if __name__ == "__main__":
