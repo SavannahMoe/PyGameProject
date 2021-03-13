@@ -27,6 +27,7 @@ class AlienInvasion:
         self.ship = Ship(
             self
         )  # make an instance of Ship after the screen had been created
+        self.bullets = pygame.sprite.Group()  # storing bullets in a group
 
         # set the background color.
         self.bg_color = (
@@ -43,6 +44,7 @@ class AlienInvasion:
             # watche for keyboard and mouse events. #EVENT: an action that the user performs while playing the game ( pressing key or moving the mouse)
             self._check_events()
             self.ship.update()
+            self.bullets.update()  # storign bullets in a group
             self._update_screen()
 
             # redraw the screen during the pass thorugh the loop.
