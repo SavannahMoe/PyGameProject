@@ -28,11 +28,14 @@ class Ship:
         self.moving_right = (
             False  # moving right attribute added to __init__ and initially set to false
         )
+        self.moving_left = False
 
     def update(self):
-        """update the ship's position based on the movemnet flag."""
+        """update the ship's position based on the movemnet flags."""
         if self.moving_right:
             self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
 
     def blitme(self):
         """Draw the ship at its current location."""
