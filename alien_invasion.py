@@ -12,6 +12,9 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((1200, 800)) #creates display window and uses tuple define deminsions
         pygame.display.set_caption("Alien Invasion") #self.screen is a SUFRACE, each element can be returned by display.set_mode
     
+        #set the background color. 
+        self.bg_color = (230, 230 ,230) #light grey = background equal amounts (red, green, blue)
+
     def run_game(self):
         """Start the main loop for the game."""
         while True:                             #while loop that runs continually and includes event loop (for loop)
@@ -19,6 +22,9 @@ class AlienInvasion:
             for event in pygame.event.get():       #write this to listen for events and perform appropraite tasks
                 if event.type ==pygame.QUIT:
                     sys.exit()                     #when user presses the close button== QUIT will use sys.exit to exit the game
+
+            #redraw the screen during the pass thorugh the loop. 
+            self.screen.fill(self.bg_color)        #Fill method, acts on the surface and take one argument a color
 
             # make the most recently drawn screen visible.
             pygame.display.flip()   #tells pygame to make the most recently drawn screen visible, continually updates to show the 
