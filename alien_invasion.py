@@ -82,9 +82,8 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """create a new bullet and add it to the bullets group."""
-        if (
-            len(self.bullets) < self.settings.bullets_allowed
-        ):  # if the number of bullets still available to the player then....
+        if len(self.bullets) < self.settings.bullets_allowed:
+            # if the number of bullets still available to the player then....
             new_bullet = Bullet(self)  # make an instance of Bullet
             self.bullets.add(new_bullet)  # add it to the bullet group using add()
 
@@ -97,9 +96,8 @@ class AlienInvasion:
         ) in (
             self.bullets.copy()
         ):  # copy() method in the for loop allows us to modify bullets inside the loop
-            if (
-                bullet.rect.bottom <= 0
-            ):  # check to see if each bullet has moved off the screen
+            if bullet.rect.bottom <= 0:
+                # check to see if each bullet has moved off the screen
                 self.bullets.remove(
                     bullet
                 )  # remove the bullets if they are no longer on the screen
@@ -109,19 +107,29 @@ class AlienInvasion:
         # creating an alien and find the number of aliens in a row
         # spacing between each alien is equal to one alien width
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         available_space_x = self.settings.screen_width - (2 * alien_width)
         number_aliens_x = available_space_x // (2 * alien_width)
-        # create the first row of aliens.
-        for alien_number in range(number_aliens_x):
-            self._create_alien(alien_number)
 
-    def _create_alien(self, alien_number):
+        # determine the number of rows of aliens that fit on the screen.
+        ship_height = self.ship.rect.height
+        available_space_y = (
+            self.settings.screen_height - (3 * alien_height) - ship_height
+        )
+        number_rows = available_space_y // (2 * alien_height)
+
+        # create the full fleet of aliens
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
+
+    def _create_alien(self, alien_number, row_number):
         """create an alien and place it in the row"""
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
 
     def _update_screen(self):
