@@ -56,10 +56,6 @@ class AlienInvasion:
                     self.bullets.remove(
                         bullet
                     )  # remove the bullets if they are no longer on the screen
-'''         print(
-                len(self.bullets)
-            )  # show how many bullets currently exist in the game and verufy that they're being deleted when they reach the top of the screen
-'''
             self._update_screen()
 
             # redraw the screen during the pass thorugh the loop.
@@ -94,8 +90,11 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """create a new bullet and add it to the bullets group."""
-        new_bullet = Bullet(self)  # make an instance of Bullet
-        self.bullets.add(new_bullet)  # add it to the bullet group using add()
+        if (
+            len(self.bullets) < self.settings.bullets_allowed
+        ):  # if the number of bullets still available to the player then....
+            new_bullet = Bullet(self)  # make an instance of Bullet
+            self.bullets.add(new_bullet)  # add it to the bullet group using add()
 
     def _update_screen(self):
         """update images on the screen, and flip to the new screen."""
