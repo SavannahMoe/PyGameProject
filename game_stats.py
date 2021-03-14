@@ -16,3 +16,4 @@ class GameStats:
             self.settings.ship_limit
         )  # able to call reset_stats() any time the player starts a new game
         self.score = 0  # storing initial score in this method rather than __init__ so that the score resets with each new game
+        self.level = 1
