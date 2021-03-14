@@ -10,6 +10,7 @@ class Settings:
 
         # ship settings
         self.ship_speed = 1.5  # now position adjusts/moves at 1.5 pixels on each pass through the loop
+        self.ship_limit = 3
 
         # bulltet settings
         self.bullet_speed = 1.5
