@@ -3,6 +3,7 @@ from time import sleep
 import pygame
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
 from bullet import Bullet
@@ -25,8 +26,9 @@ class AlienInvasion:
         pygame.display.set_caption(
             "Alien Invasion"
         )  # self.screen is a SUFRACE, each element can be returned by display.set_mode
-        # create an instance to store game statistics
+        # create an instance to store game statistics and create a scoreboard
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
 
         self.ship = Ship(
             self
@@ -260,6 +262,8 @@ class AlienInvasion:
         ):  # sprite method returns a list of all sprites in the group bullets, loop through the sprites
             bullet.draw_bullet()  # and call draw_bullet on each one
         self.aliens.draw(self.screen)
+        # draw the score information
+        self.sb.show_score()
         # draw the play button if the game is inactive
         if not self.stats.game_active:
             self.play_button.draw_button()
