@@ -87,6 +87,8 @@ class AlienInvasion:
         if (
             button_clicked and not self.stats.game_active
         ):  # game will only restart in Play is clicked AND the game is not currently active
+            # reset the game settings.
+            self.settings.initialize_dynamic_settings()
             # reset the game statistics
             self.stats.reset_stats()
             self.stats.game_active = True
