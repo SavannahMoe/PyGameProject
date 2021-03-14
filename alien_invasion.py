@@ -49,11 +49,14 @@ class AlienInvasion:
             True
         ):  # while loop that runs continually and includes event loop (for loop)
             # watche for keyboard and mouse events. #EVENT: an action that the user performs while playing the game ( pressing key or moving the mouse)
-            self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
-            self._update_screen()
+            self._check_events()  # even if game is inactive, still need to call _check_events
+
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
+
+            self._update_screen()  # must continually update the screen, while waiting to see the player choose to start a new game
 
             # redraw the screen during the pass thorugh the loop.
 
@@ -187,7 +190,7 @@ class AlienInvasion:
         # the following tests to be sure that the player has atleast one ship remaining, if they do not, game_active is set to false
         if self.stats.ships_left > 0:
             # Decrement ships_left.
-            self.stats.ship_left -= 1  # number of ships left is reduced by 1
+            self.stats.ships_left -= 1  # number of ships left is reduced by 1
             # get rid of any remaining aliens and bullets.
             self.aliens.empty()
             self.bullets.empty()
