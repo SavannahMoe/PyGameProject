@@ -130,6 +130,8 @@ class AlienInvasion:
 
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()  # calling _ship_hit when an alien hits a ship
+        # look for aliens hitting the bottom of the screen.
+        self._check_aliens_bottom()
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
@@ -182,16 +184,29 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
-        # Decrement ships_left.
-        self.stats.ship_left -= 1  # number of ships left is reduced by 1
-        # get rid of any remaining aliens and bullets.
-        self.aliens.empty()
-        self.bullets.empty()
-        # create a new fleet and center the ship
-        self._create_fleet()
-        self.ship.center_ship()
-        # pause
-        sleep(0.5)  # so the play can see that they have been hit for half a second
+        # the following tests to be sure that the player has atleast one ship remaining, if they do not, game_active is set to false
+        if self.stats.ships_left > 0:
+            # Decrement ships_left.
+            self.stats.ship_left -= 1  # number of ships left is reduced by 1
+            # get rid of any remaining aliens and bullets.
+            self.aliens.empty()
+            self.bullets.empty()
+            # create a new fleet and center the ship
+            self._create_fleet()
+            self.ship.center_ship()
+            # pause
+            sleep(0.5)  # so the play can see that they have been hit for half a second
+        else:
+            self.stats.game_active = False
+
+    def _check_aliens_bottom(self):
+        """check if any aliens have reached the bottome of the screen."""
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                # treat this the same as if the ship got hit
+                self._ship_hit()
+                break
 
     def _update_screen(self):
         """update images on the screen, and flip to the new screen."""
