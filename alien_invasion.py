@@ -47,7 +47,7 @@ class AlienInvasion:
             # watche for keyboard and mouse events. #EVENT: an action that the user performs while playing the game ( pressing key or moving the mouse)
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
 
             # redraw the screen during the pass thorugh the loop.
@@ -88,6 +88,7 @@ class AlienInvasion:
             self.bullets.add(new_bullet)  # add it to the bullet group using add()
 
     def _update_bullets(self):
+        # update bullet position
         self.bullets.update()  # storign bullets in a group
 
         # get rid oof bullets that have disappeared.
@@ -96,8 +97,9 @@ class AlienInvasion:
         ) in (
             self.bullets.copy()
         ):  # copy() method in the for loop allows us to modify bullets inside the loop
-            if bullet.rect.bottom <= 0:
-                # check to see if each bullet has moved off the screen
+            if (
+                bullet.rect.bottom <= 0
+            ):  # check to see if each bullet has moved off the screen
                 self.bullets.remove(
                     bullet
                 )  # remove the bullets if they are no longer on the screen
